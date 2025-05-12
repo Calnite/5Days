@@ -11,14 +11,14 @@ label bedd2:
 
     menu:
         "wake up":
-            
+
             "..."
             jump bedroomd2
-            
+
 
         "sleep in":
-            
-            "Just five more minutes..." 
+
+            "Just five more minutes..."
             jump bedd2
 
 label bedroomd2:
@@ -33,41 +33,56 @@ label bedroomd2:
     "My head...  {w=0.5} make it stop."
 
     menu:
-        "Check my PC":      
+        "Check my PC":
             "Nothing I really wanna see."
 
-            play sound "chair.mp3" fadein 1.5 
+            play sound "chair.mp3" fadein 1.5
             scene d2_bg
             show d2_pc_1
             show d2_pc_3
             with fade1
 
-            pause 0.75   
+            pause 0.75
             "Let's check my messages."
-            play sound "click.mp3" volume 1.5
-            show d2_pc_2
-
-            pause 0.75
-            "Of course... no reply. Why am I getting my hopes up."
-            "We used to be in contact everyday.{w=0.5} Now I'm just staring at our conversations."
-            "No fair."
-            scene d2_bg
-            show d2_bedroom_1
-            show d2_bedroom_2
-            show d2_bedroom_3
-            with fade1
-
-            pause 0.75
-            "What's the point."
-            jump bathroomd2
-
+            call screen desktop(2)
+            jump expression _return
 
         "Go wash up":
-                    
+
             "Maybe I will feel better after."
             jump bathroomd2
 
 
+label d2_messages:
+    window hide
+    show screen chat_messages_view(2)
+    pause 5 ## only 5 seconds to explore, since there's nothing new to see.
+    "Of course... no reply. Why am I getting my hopes up."
+    "We used to be in contact everyday.{w=0.5} Now I'm just staring at our conversations."
+    "No fair."
+    hide screen chat_messages_view
+    scene d2_bg
+    show d2_bedroom_1
+    show d2_bedroom_2
+    show d2_bedroom_3
+    with fade1
+
+    pause 0.75
+    "What's the point."
+    jump bathroomd2
+
+label d2_game:
+    #show infinite_load
+    "...It's not loading."
+    call screen desktop(2)
+    jump expression _return
+
+label d2_shutdown:
+    "...Nevermind."
+    jump doord1
+
+    play sound "click.mp3" volume 1.5
+    show screen chat_messages_view(2)
 
 label bathroomd2:
     play sound "door.mp3" fadein 1.5
@@ -97,7 +112,7 @@ label bathroomd2:
 
             play sound "glass.mp3"
             show d2_mirror_3
-            with hpunch 
+            with hpunch
             pause 0.75
             "Ugh...  {w=0.5} that hurts."
             "Oh, fuck me."

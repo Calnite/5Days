@@ -215,11 +215,11 @@ screen choice(items):
 
         for i in items:
             textbutton i.caption action i.action
-            
-transform anim_choice_button: 
-    on hover: 
-        linear 0.5 zoom 1.2 
-    on idle: 
+
+transform anim_choice_button:
+    on hover:
+        linear 0.5 zoom 1.2
+    on idle:
         linear 0.5 zoom 1.0
 
 transform dissolveChoice:
@@ -367,30 +367,30 @@ style navigation_button_text:
 init python:
     import pygame
     import math
- 
- 
+
+
     class TrackCursor(renpy.Displayable):
- 
+
         def __init__(self, child, paramod, **kwargs):
- 
+
             super(TrackCursor, self).__init__()
- 
+
             self.child = renpy.displayable(child)
             self.x = 0
             self.y = 0
             self.actual_x = 0
             self.actual_y = 0
- 
+
             self.paramod = paramod
             self.last_st = 0
 
             width = 1920
             height = 1020
- 
- 
- 
+
+
+
         def render(self, width, height, st, at):
- 
+
             rv = renpy.Render(width, height)
             minimum_speed = 0.5
             maximum_speed = 3
@@ -399,32 +399,32 @@ init python:
             mouse_distance_y = min(maximum_speed, max(minimum_speed, (self.y - self.actual_y)))
             if self.x is not None:
                 st_change = st - self.last_st
- 
+
                 self.last_st = st
                 self.actual_x = math.floor(self.actual_x + ((self.x - self.actual_x) * speed * (st_change )) * self.paramod)
                 self.actual_y = math.floor(self.actual_y + ((self.y - self.actual_y) * speed * (st_change)) * self.paramod)
- 
- 
+
+
                 if mouse_distance_y <= minimum_speed:
                     mouse_distance_y = minimum_speed
                 elif mouse_distance_y >= maximum_speed:
                     mouse_distance_y = maximum_speed
- 
+
                 cr = renpy.render(self.child, width, height, st, at)
                 cw, ch = cr.get_size()
                 rv.blit(cr, (self.actual_x, self.actual_y))
- 
- 
- 
+
+
+
             renpy.redraw(self, 0)
             return rv
- 
+
         def event(self, ev, x, y, st):
             hover = ev.type == pygame.MOUSEMOTION
             click = ev.type == pygame.MOUSEBUTTONDOWN
             mousefocus = pygame.mouse.get_focused()
             if hover:
- 
+
                 if (x != self.x) or (y != self.y) or click:
                     self.x = -x /self.paramod
                     self.y = -y /self.paramod
@@ -434,7 +434,7 @@ screen main_menu():
 
     ## This ensures that any other menu screen is replaced.
     tag menu
-    
+
 
     add TrackCursor("gui/main_menu.jpg", 25):
         xzoom 1.2
@@ -1222,6 +1222,18 @@ style help_label_text:
 ################################################################################
 ## Additional screens
 ################################################################################
+
+## Desktop screen ##############################################################
+##
+## Added as an alternative to the over-complicated point-and-click framework, which is meant for exploring an environment, not a single screen
+screen desktop(day):
+    zorder -100
+    #add "images/Day 1/d1_pc_2.png"
+    vbox:
+        pos (400,150)
+        textbutton "messages" action Return("d"+str(day)+"_messages")
+        textbutton "game" action Return("d"+str(day)+"_game")
+        textbutton "shut down" action Return("d"+str(day)+"_shutdown")
 
 
 ## Confirm screen ##############################################################

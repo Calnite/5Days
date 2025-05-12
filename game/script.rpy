@@ -1,8 +1,9 @@
 ﻿
 
-init -3:
-    default current_room = None # This variable controls what list to get buttons from
-    default pnc_flags = {} # This variable controls various creator-defined flags that control the state of a given point'n'click segment
+#init -3:
+    #default current_room = None # This variable controls what list to get buttons from
+    #default pnc_flags = {} # This variable controls various creator-defined flags that control the state of a given point'n'click segment
+## these are set in point_and_click.rpy and should not be repeated
 
 screen pnc_screen(room="left"):
 
@@ -32,40 +33,48 @@ define gui.characters_outline_scaling = "linear"
 default dreamending = False
 default sleeping = False
 
+default actions_taken = []
+## added to prevent errors on ifs in menus, such as "if not pcchecked" which
+## crashes the game since pcchecked isn't defined ahead of time.
 
-############################################################### DAY 2
+default l = ChatCharacter("lover", icon="images/lover.png")
+default f = ChatCharacter("friend", icon="images/friend.png")
+default m = ChatCharacter("mom", icon="images/mom.png")
+default y = ChatCharacter("you", icon="images/you.png")
+
+############################################################### DAY 1
 
 
 label start:
     play music "<loop 0>umbra.mp3" volume 0.25 fadeout 1.5 fadein 1.5
 
-    scene d1_bg 
-    show d1_bed 
+    scene d1_bg
+    show d1_bed
     with fade1
     pause 1
 
     menu:
         "wake up":
-            
+
             "I better get up now."
             jump bedroomd1
-            
+
         "sleep in":
-            if dreamending: 
+            if dreamending:
                 jump dreamending
             elif sleeping:
                 jump sleepin2
             else:
                 jump sleepin1
-                
+
 
 label sleepin1:
-    "Just five more minutes..." 
+    "Just five more minutes..."
     $ sleeping = True
     jump start
 
 label sleepin2:
-    "... I want... more time." 
+    "... I want... more time."
     $ dreamending = True
     jump start
 
@@ -110,43 +119,67 @@ label menu:
     menu:
         "What should I do now?"
 
-        "Check my PC" if not pcchecked:
+        "Check my PC" if not "d1_pcchecked" in actions_taken:
+            $ actions_taken.append("d1_pcchecked")
             jump pcd1
 
-        "Eat something" if not ate:
+        "Eat something" if not "d1_ate" in actions_taken:
+            $ actions_taken.append("d1_ate")
             jump kitchend1
 
-        "Go wash up" if not bathvisited:
-                    
+        "Go wash up" if not "d1_bathvisited" in actions_taken:
+            $ actions_taken.append("d1_bathvisited")
             "I might need it."
             jump bathroomd1
 
 label pcd1:
-    $ quick_menu = False
-    window hide diss
-    call screen pnc_screen(current_room)
-    window show diss
-    $ quick_menu = True
-    jump expression _return
-
-    play sound "chair.mp3" fadein 1.5
+    play sound "<silence 1.0>"
+    queue sound "chair.mp3" fadein 1.5
+    scene d1_pc_1
     with fade1
 
-    pause 0.75   
-    "Hm, I should check my messages."
-    play sound "click.mp3" volume 1.5
-    show d1_pc_2
-
     pause 0.75
+    "Hm, I should check my messages."
+
+    call screen desktop(1)
+    jump expression _return
+
+label d1_game:
+    #show infinite_load
+    "...It's not loading."
+    call screen desktop(1)
+    jump expression _return
+
+label d1_shutdown:
+    "...Nevermind."
+    jump doord1
+
+label d1_messages:
+    play sound "click.mp3" volume 1.5
+    $ reset_chats() ## this gets everything set up correctly, but since you don't want any new messages to show up, only call it on day 1.
+    window hide
+    show screen chat_messages_view(1)
+    y "hey can we talk?" (c="lover")
+    f "what's up?" (c="friend")
+    y "nothing" (c="friend")
+    f "cool"
+    m "Love and kisses!" (c="mom")
+    m "Are you coming home for the holdidays?"
+    m "Call me."
+    pause 10 ## 10 seconds to explore
     "Still no reply."
     "I just need to wait. Any moment...{w=0.5} you'll reply or call me"
     "like you always did."
     "I should check again tomorrow. I can wait."
+    hide screen chat_messages_view
     scene d1_bg
     show d1_bedroom_1
     show d1_bedroom_2
     show d1_bedroom_3
     with fade1
+
+
+
 
 label bathroomd1:
     play sound "door.mp3" fadein 1.5
@@ -194,4 +227,3 @@ label doord1:
     "and I'll hear your voice."
 
     jump bedd2
-    
