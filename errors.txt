@@ -1,0 +1,30 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+The label bedd2 is defined twice, at File "game/script.rpy", line 181:
+label bedd2:
+and File "game/script2.rpy", line 5:
+label bedd2:
+
+
+The label bedroomd2 is defined twice, at File "game/script.rpy", line 200:
+label bedroomd2:
+and File "game/script2.rpy", line 24:
+label bedroomd2:
+
+
+The label bathroomd2 is defined twice, at File "game/script.rpy", line 248:
+label bathroomd2:
+and File "game/script2.rpy", line 72:
+label bathroomd2:
+
+
+The label doord2 is defined twice, at File "game/script.rpy", line 299:
+label doord2:
+and File "game/script2.rpy", line 123:
+label doord2:
+
+
+Ren'Py Version: Ren'Py 8.3.2.24090902
+Sun May 11 22:36:54 2025
