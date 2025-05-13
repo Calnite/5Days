@@ -2,29 +2,9 @@
 errors listed below, and try again.
 
 
-The label bedd2 is defined twice, at File "game/script.rpy", line 181:
-label bedd2:
-and File "game/script2.rpy", line 5:
-label bedd2:
-
-
-The label bedroomd2 is defined twice, at File "game/script.rpy", line 200:
-label bedroomd2:
-and File "game/script2.rpy", line 24:
-label bedroomd2:
-
-
-The label bathroomd2 is defined twice, at File "game/script.rpy", line 248:
-label bathroomd2:
-and File "game/script2.rpy", line 72:
-label bathroomd2:
-
-
-The label doord2 is defined twice, at File "game/script.rpy", line 299:
-label doord2:
-and File "game/script2.rpy", line 123:
-label doord2:
-
+File "game/script3.rpy", line 210: choice menuitem expects a non-empty block.
+    "Leave it, I can't clean properly now.":
+                                            ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Sun May 11 22:36:54 2025
+Tue May 13 02:32:13 2025

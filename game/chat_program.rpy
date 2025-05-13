@@ -77,6 +77,7 @@ init python:
 
             store.all_npc_first_names.append(self.name.split()[0])
 
+
         def __call__(self, what, c=None, ot=None, fastmode=-1,**kwargs):
             """Function that is called when a script dialogue line said by a ChatCharacter() object is processed"""
 
@@ -85,7 +86,7 @@ init python:
             if c:
                 channel = c
             else:
-                channel = last_window or "lover" # TODO change this "#team-adoai" to your own default channel name
+                channel = last_window or "Pookie" # TODO change this "#team-adoai" to your own default channel name
 
             # if ot isn't a list and is only a single element, turn it into a list for processing later
             if ot and not isinstance(ot, list):
@@ -117,8 +118,8 @@ init python:
         global last_sender
         global last_window
 
-        current_window = "lover"
-        active_window = "lover"
+        current_window = "grizzley rizzly bear"
+        active_window = "grizzley rizzly bear"
 
         who_is_typing = ""
         who_was_typing_list = []
@@ -128,31 +129,31 @@ init python:
 
         # chat groups
         channels = {
-            "lover" : [],
-            "friend" : [],
-            "mom" : [],
+            "grizzley rizzly bear" : [],
+            "Mom" : [],
+            "Pookie" : [],
         }
 
         # optional images for chat icons
         channel_images_on = True#False
         channel_images = {
-            "lover" : "images/lover.png",
-            "friend" : "images/friend.png",
-            "mom" : "images/mom.png"
+            "grizzley rizzly bear" : "images/friend.png",
+            "Mom" : "images/mom.png",
+            "Pookie" : "images/lover.png"
         }
 
         # indicator for when a new message arrives
         channels_new_message = {
-            "lover" : False,
-            "friend" : False,
-            "mom" : False
+            "grizzley rizzly bear" : False,
+            "Mom" : False,
+            "Pookie" : False
         }
 
         # who sent the last message in the channel
         channels_last_sender = {
-            "lover" : None,
-            "friend" : None,
-            "mom" : None
+            "grizzley rizzly bear" : None,
+            "Mom" : None,
+            "Pookie" : None
         }
 
     def chat_message(sender, message, c="#team-adoai", ot=None, fastmode=-1, is_player=False):
@@ -382,18 +383,18 @@ init python:
 ## screen
 
 screen chat_messages_view(day):
-    add "images/Day "+str(day)+"/d"+str(day)+"_pc_2.png"
+    add "images/Day "+str(day)+"/d"+str(day)+"_chat.png"
 
     ## messages area
     window:
         padding (10,10)
         background None #"#a000a0a0"
-        area (820, 203, 730, 500) # 2560 x 1440 screen
+        area (580, 180, 1100, 640) # 2560 x 1440 screen
         has vbox
-        spacing 20
+        spacing 30
         #text current_window color "#FFFFFF"
         viewport yadjustment yadj:
-            xmaximum 1369
+            xmaximum 1300
             scrollbars "vertical"
             mousewheel True
 
@@ -429,9 +430,9 @@ screen chat_messages_view(day):
     window:
         padding (10,10)
         background None #"#a0a000a0"
-        area(600, 200, 200, 500)
+        area(260, 180, 200, 500)
         vbox:
-            spacing 20
+            spacing 30
             for l in channels.keys():
                 hbox:
                     if channel_images_on:

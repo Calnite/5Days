@@ -1230,10 +1230,10 @@ screen desktop(day):
     zorder -100
     #add "images/Day 1/d1_pc_2.png"
     vbox:
-        pos (400,150)
-        textbutton "messages" action Return("d"+str(day)+"_messages")
-        textbutton "game" action Return("d"+str(day)+"_game")
-        textbutton "shut down" action Return("d"+str(day)+"_shutdown")
+        
+        textbutton "messages" pos (100,150) action Return("d"+str(day)+"_messages")
+        textbutton "game" pos (100,250) action Return("d"+str(day)+"_game")
+        textbutton "shut down" pos (150,870) action Return("d"+str(day)+"_shutdown")
 
 
 ## Confirm screen ##############################################################
@@ -1274,7 +1274,6 @@ screen confirm(message, yes_action, no_action):
 
     ## Right-click and escape answer "no".
     key "game_menu" action no_action
-
 
 style confirm_frame is gui_frame
 style confirm_prompt is gui_prompt

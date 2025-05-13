@@ -1,28 +1,29 @@
+default kitchen1 = False
+default kitchen2 = False
+
+default washed = False
 
 ############################################################### DAY 2
 
 
-label bedd2:
-    play music "<loop 0>non-euclidean_cycle.wav" volume 0.1 fadeout 1.5 fadein 1.5
+label day2:
+    play music "<loop 0>noneuclidean.wav" volume 0.5 fadeout 1.5 fadein 1.5
 
     scene d2_bg
     show d2_bed
-    with fade1
-
-    menu:
-        "wake up":
-
-            "..."
-            jump bedroomd2
-
-
-        "sleep in":
-
-            "Just five more minutes..."
-            jump bedd2
+    with fade
+    
+    pause 0.5
+    show d2_bed2
+    pause 0.2
+    show d2_bed3 with vpunch
+    pause 0.05
+    play sound "breath.wav" 
+    show d2_bed4 
+    pause 0.1
+    jump bedroomd2
 
 label bedroomd2:
-    play sound "blanket.mp3" fadein 1.5
     scene d2_bg
     show d2_bedroom_1
     show d2_bedroom_2
@@ -30,62 +31,134 @@ label bedroomd2:
     with fade1
 
     pause 0.75
-    "My head...  {w=0.5} make it stop."
+    "..."
+    "Even in my sleep I can't have a break."
+    "You..."
 
+    pause 0.75
+
+    "I'm so tired."
+    "I can't sleep."
+    "I don't wanna do anything."
+    $ pcchecked = False
+    $ ate = False
+    $ bathvisited = False
+
+    jump menu2
+
+label menu2:
     menu:
-        "Check my PC":
-            "Nothing I really wanna see."
+        "Check my PC" if not pcchecked:
+            $ actions_taken.append("d2_pcchecked")
+            jump pcd2
 
-            play sound "chair.mp3" fadein 1.5
-            scene d2_bg
-            show d2_pc_1
-            show d2_pc_3
-            with fade1
+        "Eat something" if not ate:
+            $ actions_taken.append("d2_ate")
+            if kitchen2:
+                "Aaah what the fuck! {w=0.5}{nw}"
+                jump kitchend2
 
-            pause 0.75
-            "Let's check my messages."
-            call screen desktop(2)
-            jump expression _return
+            elif kitchen1:
+                "I don't want to go to the kitchen."
+                $ kitchen2 = True
+                jump menu2
+            
+            else:
+                "Not hungry."
+                $ kitchen1 = True
+                jump menu2
+            
 
-        "Go wash up":
-
-            "Maybe I will feel better after."
+        "Go wash up" if not bathvisited:
+            $ actions_taken.append("d2_bathvisited")
+            "Right."
+            "Maybe I will feel better."
             jump bathroomd2
 
 
-label d2_messages:
-    window hide
-    show screen chat_messages_view(2)
-    pause 5 ## only 5 seconds to explore, since there's nothing new to see.
-    "Of course... no reply. Why am I getting my hopes up."
-    "We used to be in contact everyday.{w=0.5} Now I'm just staring at our conversations."
-    "No fair."
-    hide screen chat_messages_view
-    scene d2_bg
-    show d2_bedroom_1
-    show d2_bedroom_2
-    show d2_bedroom_3
+label pcd2:
+    $ pcchecked = True
+    scene d2_pc
+    play sound "chair.mp3"
     with fade1
 
-    pause 0.75
-    "What's the point."
-    jump bathroomd2
+    pause 0.75   
+    play sound "click.mp3" volume 1.5
+
+    call screen desktop(2)
+    jump expression _return
+
 
 label d2_game:
     #show infinite_load
-    "...It's not loading."
+    "Argh, why is it not loading?!"
+    "Is the wifi here so terrible that I can't even play memories???"
     call screen desktop(2)
     jump expression _return
 
 label d2_shutdown:
-    "...Nevermind."
-    jump doord1
+    "...Whatever."
+    scene d2_bg
+    show d2_bedroom_1
+    show d2_bedroom_2
+    show d2_bedroom_3
+    with fade1
+    jump menu2
 
+label d2_messages:
     play sound "click.mp3" volume 1.5
+    $ reset_chats()
+    window hide
     show screen chat_messages_view(2)
 
+    f "Cooked instant noodles and there was somehow" (c="grizzley rizzly bear")
+    f "A BUG IN THE BOILING POT"
+    f "I was hungry af..." 
+    f "so i dumped the bug and water down the drain n ate the noodles"
+    f "If i die it was bc of the bug"
+    y "lmao" (c="grizzley rizzly bear")
+    f "Heyy, what's up?"
+    y "nothing"
+    f "Cool"
+    f "You won't believe what happen!" 
+    f "I bought light sensitive color powder for my project, I accidentally let it go under the sun."
+    f "LIGHT REACTIVE EVEN IN POWDER FORM"
+    f "I'm so stupid... now I have to go buy new one...TmT"
+    f "Hope you are doing well!"
+    f "Text me back if you can!"
+
+    m "Are you coming home for the holidays?" (c="Mom")
+    y "no I will be at #### house"  (c="Mom")
+    m "Alright then, you guys have fun!"
+    m "Love and kisses!"
+    m "Hey, you should pick up the phone when I call you."
+    m "Call me."
+    m "Do you want me to bring you more food today?"
+    m "I will bring anyways, check your mailbox."
+    
+    l "I'm sorry for yelling at you yesterday... I'm not feeling well."  (c="Pookie")
+    l "I'm not making excuses of course, I'm really sorry."
+    l "Please pick up my calls :("
+    y "I miss you." (c="Pookie")
+    y "I wish you would reply to me."
+    
+    pause 20 ## 10 seconds to explore
+
+    "Of course... Why am I getting my hopes up."
+    "All you do now is haunt me."
+
+    hide screen chat_messages_view
+
+    scene d2_bg
+    show d2_bedroom_1
+    show d2_bedroom_2
+    show d2_bedroom_3
+    with fade1
+
+    jump menu2
+
 label bathroomd2:
-    play sound "door.mp3" fadein 1.5
+    play sound "door.mp3"
     scene d2_bg
     show d2_bathroom_1
     show d2_bathroom_2
@@ -93,7 +166,6 @@ label bathroomd2:
     with fade1
 
     pause 0.75
-    "The light is irritating."
 
     menu:
         "Look closer":
@@ -112,44 +184,54 @@ label bathroomd2:
 
             play sound "glass.mp3"
             show d2_mirror_3
-            with hpunch
+            with hpunch 
             pause 0.75
             "Ugh...  {w=0.5} that hurts."
-            "Oh, fuck me."
+            "Wow, good job."
             "Now I have to clean up the shards."
 
             scene d2_blood
             with fade1
 
             pause 0.75
+            "Just break everything."
+            "Of course why not?"
+            "..."
             "Why am I so stupid."
-            "It's all my fault."
 
-            jump doord2
+            scene d2_bg
+            show d2_bathroom_1
+            show d2_bathroom_2
+            show d2_bathroom_3
+            with fade1
+            pause 0.5
+            "Maybe I should try to go back to sleep."
+            "And wake up in a better mood..."
+            
+            stop music
+            jump day3
+
+        "Wash up" if not washed:
+            play sound "tapwater.wav"
+            scene d2_sink with fade
+            pause 0.5
+            "Didn't help at all."
 
 
-        "Wash up":
-            "Cold water."
-            "Didn't help."
-
+            $ washed = True
             jump bathroomd2
 
 
-label doord2:
-    play sound "door.mp3" fadein 1.5
-    scene d2_bg
-    show d2_door_1
-    show d2_door_2
-    show d2_door_3
-    with fade1
+label kitchend2:
+    play sound "door.mp3"
+    scene d2_kitchen with fade1
+    pause 0.5
 
-    pause 0.75
-    "I hate this."
-    "I hate that you broke the promise."
-    "I hate that you left me all by myself."
-    "I hate that I feel so alone."
     "..."
-    "I hate you."
-    pause 0.75
+    "There's glass shards on the floor."
+    "Whatever, I will clean it later."
+    "Not in the mood."
 
-    jump bedd3
+    $ ate = True
+    
+    jump menu2
