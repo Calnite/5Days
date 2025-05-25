@@ -19,7 +19,7 @@ label day5:
 
         "Ignore":
             "I don't expect any guess."
-            "I'm to tired, I will sleep in a little."
+            "I'm to tired, I will sleep in a little more."
             jump missedmsgending
 
 label momsending:
@@ -29,9 +29,10 @@ label momsending:
 
     mom "Oh my god."
     mom "I keep calling you and you didn't pick up."
-    mom "You friends also told me you didn't replied."
+    mom "You friends also told me you didn't replied to their text either."
     mom "Don't ghost us like this."
     mom "You friends are worried!"
+    pause 1.0
     mom "...I was so worried."
     "..."
     mom "How are you doing, honey."
@@ -39,7 +40,7 @@ label momsending:
     scene black with fade1
     pause 1
 
-    show text "True Ending" with dissolve
+    show text "Mom's little sun shine Ending" with dissolve
     pause 2
 
     hide text with fade
@@ -63,6 +64,15 @@ label missedmsgending:
     "I slept in..."
     "I should charge my phone. It's been a few days since I check it."
     "Let's open the window to let in some fresh air in."
+    pause 1.0
+    "My room is a mess I should clean it up."
+    "And I need to buy grocery..."
+    
+    scene d5_door_3
+    show d5_door_2
+    show d5_door_1
+    with fade1
+    "I should take a bath before I go out."
 
     play sound "phone.mp3"
     "..."
@@ -70,8 +80,10 @@ label missedmsgending:
 
     scene phone with fade
     pause 1.0
-    "...mom"
-    play sound "hey.mp3" volume 3
+    "...mom."
+    "I forgot to reply to her."
+    pause 1.0
+    play sound "hey.mp3" volume 3.5
     pause 1.0
 
     scene black with fade1

@@ -33,12 +33,10 @@ label bedroomd2:
     pause 0.75
     "..."
     "Even in my sleep I can't have a break."
-    "You..."
 
     pause 0.75
 
-    "I'm so tired."
-    "I can't sleep."
+    "I'm so tired, but I can't sleep."
     "I don't wanna do anything."
     $ pcchecked = False
     $ ate = False
@@ -97,7 +95,6 @@ label d2_game:
     jump expression _return
 
 label d2_shutdown:
-    "...Whatever."
     scene d2_bg
     show d2_bedroom_1
     show d2_bedroom_2
@@ -120,7 +117,8 @@ label d2_messages:
     f "Heyy, what's up?"
     y "nothing"
     f "Cool"
-    f "You won't believe what happen!" 
+
+    f "You won't believe what happen!" (c="grizzley rizzly bear")
     f "I bought light sensitive color powder for my project, I accidentally let it go under the sun."
     f "LIGHT REACTIVE EVEN IN POWDER FORM"
     f "I'm so stupid... now I have to go buy new one...TmT"
@@ -187,17 +185,13 @@ label bathroomd2:
             with hpunch 
             pause 0.75
             "Ugh...  {w=0.5} that hurts."
-            "Wow, good job."
             "Now I have to clean up the shards."
 
             scene d2_blood
             with fade1
 
             pause 0.75
-            "Just break everything."
-            "Of course why not?"
-            "..."
-            "Why am I so stupid."
+            "Just break everything. Of course, why not?"
 
             scene d2_bg
             show d2_bathroom_1
@@ -213,7 +207,7 @@ label bathroomd2:
 
         "Wash up" if not washed:
             play sound "tapwater.wav"
-            scene d2_sink with fade
+            scene d1_sink with fade
             pause 0.5
             "Didn't help at all."
 
@@ -227,10 +221,8 @@ label kitchend2:
     scene d2_kitchen with fade1
     pause 0.5
 
-    "..."
     "There's glass shards on the floor."
     "Whatever, I will clean it later."
-    "Not in the mood."
 
     $ ate = True
     

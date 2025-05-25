@@ -1,4 +1,6 @@
 default phonebed = False
+default bath1 = False
+default bath2 = False
 
 ############################################################### DAY 4
 
@@ -22,11 +24,13 @@ label day4:
     with fade1
     pause 0.5
 
-    "There's nothing left. No one left."
-    "I'm all alone..."
+    "My head hurts."
 
     if kitchencleaned:
-        jump bedroomd4
+        if attach:
+            jump sleepending
+        else:
+            jump bedroomd4
     else:
         jump sleepending
 
@@ -35,19 +39,13 @@ label sleepending:
 
     scene black with fade1
     pause 1.0
-
-    show text "I'm so tired... I should rest." with dissolve
-    pause 2
     
-    hide text with fade
-    pause 1.0
+    nvl clear 
+    n "I'm so tired... I should rest. {w=2} {nw}"
+    n "...I wish I would never wake up. {w=2} {nw}"
+    n "if I do I wish I would wake up next to you. {w=2} {nw}"
+    n "I hope this nightmare is over soon. {w=2} {nw}"
     
-    show text "...I wish I would never wake up." with dissolve
-    pause 2
-    
-    hide text with fade
-    pause 1.0
-
     show text "Sleeping Ending" with dissolve
     pause 2
 
@@ -75,6 +73,8 @@ label bedroomd4:
     pause 0.75
 
     "Why did I wake up..."
+    "There's nothing left. No one left."
+    "I'm all alone..."
 
     $ pcchecked = False
     $ ate = False
@@ -90,8 +90,7 @@ label menu4:
             $ actions_taken.append("d4_pcchecked")
             
             "You left me so suddenly... and took everything with you."
-            "You left me... so lonely."
-            "Why am I torturing myself."
+            "No matter what I do...I'm so lonely without you."
             jump pcd4
 
         "Eat something" if not ate:
@@ -99,17 +98,17 @@ label menu4:
             $ actions_taken.append("d4_ate")
             if kitchen2:
                 "Fine..."
-                jump kitchend2
+                jump kitchend4
 
             elif kitchen1:
                 "I don't think I have food in the kitchen."
                 $ kitchen2 = True
-                jump menu2
+                jump menu4
             
             else:
                 "Not hungry."
                 $ kitchen1 = True
-                jump menu2
+                jump menu4
             
         "Go wash up" if not bathvisited:
             $ actions_taken.append("d4_bathvisited")
@@ -143,7 +142,6 @@ label pcd4:
     pause 0.75   
     play sound "click.mp3" volume 1.5
     
-    "Why are you torturing me."
 
     call screen desktop(4)
     jump expression _return
@@ -186,7 +184,8 @@ label d4_messages:
     f "I'm so stupid... now I have to go buy new one...TmT"
     f "Hope you are doing well!"
     f "Text me back if you can!"
-    f "There is this one book i want on that overstock website" 
+
+    f "There is this one book i want on that overstock website"  (c="grizzley rizzly bear")
     f "and i've literally missed it TWICE already by a few minutes..."
     f "hey, getting very worried..."
     f "please respond"
@@ -228,9 +227,15 @@ label kitchend4:
     play sound "door.mp3"
     scene d4_kitchen with fade1
 
-    "This is really grim."
+    "This kitchen is really depressing."
     "I'm really not hungry."
     "I just want to sleep."
+    
+    scene d4_bg
+    show d4_bedroom_1
+    show d4_bedroom_2
+    show d4_bedroom_3
+    with fade1
 
     jump menu4
 
@@ -257,5 +262,9 @@ label bathroomd4:
     "The mark will be here forever."
     "Unlike you."
     "I've been fighting so hard, but... I can't bring you back."
+    pause 1.0
+    "Why am I torturing myself."
+    pause 1.0
+    "Why are you torturing me."
 
     jump menu4

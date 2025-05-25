@@ -1,4 +1,6 @@
 ﻿
+
+
 define n = Character(" ", kind=nvl)
 define end = Character("", kind=nvl, what_text_align=0.5, what_xalign=0.5)
 
@@ -16,9 +18,13 @@ style say_label:
 default dreamending = False
 default sleeping = False
 
+default kitchencleaned = False
 default bathvisited = False
 default pcchecked = False
 default ate = False
+
+default attach = False
+default avoid = False
 
 default actions_taken = []
 
@@ -51,18 +57,16 @@ label splashscreen:
 label start:
     stop music
     scene bg with fade1
-    n "It's been such a long time..."
-    n "How many days has gone by? I can't tell."
+    n "It's been such a long time...{w=2} {nw}"
+    n "How many days has gone by? I can't tell.{w=2} {nw}"
+    n "The sky is always dark.{w=2} {nw}"
+    n "Usually, I love gloomy weather...{w=2} {nw}"
+    n "But lately I can't stand looking at it.{w=2} {nw}"
+    n "It wears me out.{w=2} {nw}"
 
     nvl clear
 
-    n "The sky is always dark. Usually I love gloomy weather,"
-    n "But lately I can't stand looking at it."
-    n "It makes my mood sour."
-
-    nvl clear
-
-    n "I miss you."
+    end "I still think about you."
 
     jump day1
 
@@ -150,8 +154,7 @@ label bedroomd1:
     play sound "blanket.mp3"
 
     pause 0.75
-    "I slept terriblely."
-    "Must have been the nightmares."
+    "I slept terriblely. Must have been the nightmares."
     jump menu
 
 label menu:
@@ -168,7 +171,6 @@ label menu:
 
         "Go wash up" if not bathvisited:
             $ actions_taken.append("d1_bathvisited")
-            "I might need it."
             jump bathroomd1
 
 label pcd1:
@@ -192,7 +194,7 @@ label d1_game:
     jump expression _return
 
 label d1_shutdown:
-    "...Nevermind."
+    "...Nevermind. {w=2} {nw}"
     scene d1_bg
     show d1_bedroom_1
     show d1_bedroom_2
@@ -229,7 +231,7 @@ label d1_messages:
     y "I miss you." (c="Pookie")
     y "I wish you would reply to me."
     
-    pause 20 ## 10 seconds to explore
+    pause 30
 
     "...still no reply."
     "It's okay I can wait... you'll text or  call me."
@@ -256,18 +258,27 @@ label bathroomd1:
     pause 0.75
     "My bathroom's light is not very bright."
     "You keep reminding me to fix it."
-    "..."
     
     $ bathvisited = True
 
     menu:
-        "Look closer":
-            "...it's just me."
+        "You left your toothrush here."
+        "Throw it away":
+            $ avoid = True
+            "... There's no need to keep a spare brush."
+
+        "Leave it there":
+            $ attach = True
+            "I won't throw your things away."
+            "I will keep it for as long as I can."
+
+    menu:
+        "Look at the mirror":
             scene d1_bg
             show d1_mirror_1
             show d1_mirror_2
             with fade1
-
+            "...it's just me."
             pause 0.75
             "Oh...  {w=0.5} is it really me?"
             "I don't know."

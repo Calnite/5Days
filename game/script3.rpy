@@ -24,7 +24,6 @@ label bedroomd3:
 
     pause 0.75
     "My hand...  {w=0.5} I'm an idiot."
-    "..."
     "If... I had just did the right thing, would it have changed anything?"
     "Maybe it's just my curse."
     
@@ -153,12 +152,45 @@ label bathroomd3:
     with fade1
 
     pause 0.75
+
+    if avoid:
+        "I threw away your toothbrush."
+        "...I can still take it fro mthe trashcan."
+        "It's still not to late..."
+        menu: 
+            "Take it out the trashcan":
+                "I will wash it and put it away."
+                $ avoid = False
+            
+            "Leave it":
+                "I shouldn't be so indecisive."
+        
+    elif attach:
+        "...your toothbrush."
+        "I didn't manage to throw it away."
+        menu:
+            "Throw it away":
+                $ avoid = True
+                $ attach = False
+                "I won't be needing this any more."
+
+            "Put it away":
+                "If I can't throw it away I have to put it away."
+
+            "Leave it":
+                "I can throw it away later."
+
+
+    else:
+        "..."
+
     "The mirror... it's cracked."
     "...of course it is."
 
     menu:
-        "Look closer":
-            "Why did I do that... I will get a scar from this."
+        "Look at the mirror":
+            "Why did I have to do that..."
+            "I will get a scar."
             scene d3_bg
             show d3_mirror_1
             show d3_mirror_2

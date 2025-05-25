@@ -1,91 +1,28 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script4.rpy", line 210, in script
-    "..."
-  File "game/chat_program.rpy", line 385, in execute
-    screen chat_messages_view(day):
-  File "game/chat_program.rpy", line 385, in execute
-    screen chat_messages_view(day):
-  File "game/chat_program.rpy", line 430, in execute
-    window:
-  File "game/chat_program.rpy", line 434, in execute
-    vbox:
-  File "game/chat_program.rpy", line 436, in execute
-    for l in channels.keys():
-  File "game/chat_program.rpy", line 437, in execute
-    hbox:
-  File "game/chat_program.rpy", line 441, in execute
-    textbutton l:
-  File "game/chat_program.rpy", line 441, in keywords
-    textbutton l:
-  File "game/chat_program.rpy", line 442, in keywords
-    if channels_new_message[l]:
-  File "game/chat_program.rpy", line 442, in <module>
-    if channels_new_message[l]:
-KeyError: 'mom'
+  File "game/script4.rpy", line 114, in script
+    if bath2:
+  File "game/script4.rpy", line 114, in <module>
+    if bath2:
+NameError: name 'bath2' is not defined
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script4.rpy", line 210, in script
-    "..."
-  File "F:\renpy-8.3.2-sdk\renpy\ast.py", line 2573, in execute
-    Say.execute(self)
-  File "F:\renpy-8.3.2-sdk\renpy\ast.py", line 615, in execute
-    renpy.exports.say(who, what, *args, **kwargs)
-  File "F:\renpy-8.3.2-sdk\renpy\exports\sayexports.py", line 132, in say
-    who(what, *args, **kwargs)
-  File "F:\renpy-8.3.2-sdk\renpy\character.py", line 1455, in __call__
-    self.do_display(who, what, cb_args=self.cb_args, dtt=dtt, **display_args)
-  File "F:\renpy-8.3.2-sdk\renpy\character.py", line 1106, in do_display
-    display_say(who,
-  File "F:\renpy-8.3.2-sdk\renpy\character.py", line 803, in display_say
-    rv = renpy.ui.interact(mouse='say', type=type, roll_forward=roll_forward)
-  File "F:\renpy-8.3.2-sdk\renpy\ui.py", line 301, in interact
-    rv = renpy.game.interface.interact(roll_forward=roll_forward, **kwargs)
-  File "F:\renpy-8.3.2-sdk\renpy\display\core.py", line 2215, in interact
-    repeat, rv = self.interact_core(preloads=preloads, trans_pause=trans_pause, pause=pause, pause_start=pause_start, pause_modal=pause_modal, **kwargs) # type: ignore
-  File "F:\renpy-8.3.2-sdk\renpy\display\core.py", line 2745, in interact_core
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "F:\renpy-8.3.2-sdk\renpy\display\displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "F:\renpy-8.3.2-sdk\renpy\display\displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  File "F:\renpy-8.3.2-sdk\renpy\display\displayable.py", line 434, in visit_all
-    d.visit_all(callback, seen)
-  [Previous line repeated 2 more times]
-  File "F:\renpy-8.3.2-sdk\renpy\display\screen.py", line 480, in visit_all
-    callback(self)
-  File "F:\renpy-8.3.2-sdk\renpy\display\core.py", line 2745, in <lambda>
-    root_widget.visit_all(lambda d : d.per_interact())
-  File "F:\renpy-8.3.2-sdk\renpy\display\screen.py", line 491, in per_interact
-    self.update()
-  File "F:\renpy-8.3.2-sdk\renpy\display\screen.py", line 697, in update
-    self.screen.function(**self.scope)
-  File "game/chat_program.rpy", line 385, in execute
-    screen chat_messages_view(day):
-  File "game/chat_program.rpy", line 385, in execute
-    screen chat_messages_view(day):
-  File "game/chat_program.rpy", line 430, in execute
-    window:
-  File "game/chat_program.rpy", line 434, in execute
-    vbox:
-  File "game/chat_program.rpy", line 436, in execute
-    for l in channels.keys():
-  File "game/chat_program.rpy", line 437, in execute
-    hbox:
-  File "game/chat_program.rpy", line 441, in execute
-    textbutton l:
-  File "game/chat_program.rpy", line 441, in keywords
-    textbutton l:
-  File "game/chat_program.rpy", line 442, in keywords
-    if channels_new_message[l]:
-  File "game/chat_program.rpy", line 442, in <module>
-    if channels_new_message[l]:
-KeyError: 'mom'
+  File "game/script4.rpy", line 114, in script
+    if bath2:
+  File "C:\Users\memor.DESKTOP-AEKJ83H\Downloads\renpy-8.3.7-sdk\renpy-8.3.7-sdk\renpy\ast.py", line 1856, in execute
+    if renpy.python.py_eval(condition):
+  File "C:\Users\memor.DESKTOP-AEKJ83H\Downloads\renpy-8.3.7-sdk\renpy-8.3.7-sdk\renpy\python.py", line 1218, in py_eval
+    return py_eval_bytecode(code, globals, locals)
+  File "C:\Users\memor.DESKTOP-AEKJ83H\Downloads\renpy-8.3.7-sdk\renpy-8.3.7-sdk\renpy\python.py", line 1211, in py_eval_bytecode
+    return eval(bytecode, globals, locals)
+  File "game/script4.rpy", line 114, in <module>
+    if bath2:
+NameError: name 'bath2' is not defined
 
 Windows-10-10.0.26100 AMD64
-Ren'Py 8.3.2.24090902
+Ren'Py 8.3.7.25031702
 5 Days 2
-Tue May 13 04:15:39 2025
+Tue May 13 18:27:48 2025
