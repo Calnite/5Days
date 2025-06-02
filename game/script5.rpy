@@ -5,7 +5,7 @@ define mom = Character("Mom")
 
 label day5:
     play music "<loop 0>umbra_draft.mp3" volume 0.15 fadeout 1.5 fadein 1.5
-    
+
     scene d5_bed
     with fade1
 
@@ -18,7 +18,7 @@ label day5:
             jump momsending
 
         "Ignore":
-            "I don't expect any guess."
+            "I don't expect any guests."
             "I'm to tired, I will sleep in a little more."
             jump missedmsgending
 
@@ -57,7 +57,7 @@ label momsending:
 
 
 label missedmsgending:
-    scene d5_bedroom_3 
+    scene d5_bedroom_3
     show d5_bedroom_2
     show  d5_bedroom_1
     with fade1
@@ -67,7 +67,7 @@ label missedmsgending:
     pause 1.0
     "My room is a mess I should clean it up."
     "And I need to buy grocery..."
-    
+
     scene d5_door_3
     show d5_door_2
     show d5_door_1

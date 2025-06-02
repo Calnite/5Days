@@ -6,6 +6,7 @@ default bath2 = False
 
 
 label day4:
+    $ seen_todays_messages = False
     scene d4_bg
     show d4_bed
     with fade1
@@ -39,13 +40,13 @@ label sleepending:
 
     scene black with fade1
     pause 1.0
-    
-    nvl clear 
+
+    nvl clear
     n "I'm so tired... I should rest. {w=2} {nw}"
     n "...I wish I would never wake up. {w=2} {nw}"
     n "if I do I wish I would wake up next to you. {w=2} {nw}"
     n "I hope this nightmare is over soon. {w=2} {nw}"
-    
+
     show text "Sleeping Ending" with dissolve
     pause 2
 
@@ -59,7 +60,7 @@ label sleepending:
     pause 1.0
 
     scene main_menu with dissolve1
-    return 
+    return
 
 
 label bedroomd4:
@@ -88,7 +89,7 @@ label menu4:
         "Check my PC" if not pcchecked:
             $ phonebed = True
             $ actions_taken.append("d4_pcchecked")
-            
+
             "You left me so suddenly... and took everything with you."
             "No matter what I do...I'm so lonely without you."
             jump pcd4
@@ -104,12 +105,12 @@ label menu4:
                 "I don't think I have food in the kitchen."
                 $ kitchen2 = True
                 jump menu4
-            
+
             else:
                 "Not hungry."
                 $ kitchen1 = True
                 jump menu4
-            
+
         "Go wash up" if not bathvisited:
             $ actions_taken.append("d4_bathvisited")
             $ phonebed = True
@@ -121,17 +122,17 @@ label menu4:
                 "I should just go to sleep."
                 $ bath2 = True
                 jump menu4
-            
+
             else:
                 "What's the point? I am fine like this."
                 $ bath1 = True
                 jump menu4
 
-        "Play on the phone in bed" if phonebed: 
+        "Play on the phone in bed" if phonebed:
             "I will play on the phone for a bit."
             "At least I can do that..."
             jump day5
-            
+
 
 
 label pcd4:
@@ -139,13 +140,24 @@ label pcd4:
     scene d4_pc
     play sound "chair.mp3"
     with fade1
-    pause 0.75   
+    pause 0.75
     play sound "click.mp3" volume 1.5
-    
 
     call screen desktop(4)
     jump expression _return
 
+label d4_messages_cancel:
+    $ pcchecked = True
+    scene d4_pc
+    call screen desktop(4)
+    jump expression _return
+
+label d4_browser:
+    show d4_browser
+    "...It's never going to load."
+    hide d4_browser
+    call screen desktop(4)
+    jump expression _return
 
 label d4_game:
     #show infinite_load
@@ -164,51 +176,57 @@ label d4_shutdown:
 
 label d4_messages:
     play sound "click.mp3" volume 1.5
-    $ reset_chats()
+    #$ reset_chats()
     window hide
     show screen chat_messages_view(4)
+    $ day0word = "5 days ago"
+    $ day1word = "4 days ago"
+    $ day2word = "3 days ago"
+    $ day3word = "2 days ago"
+    $ day4word = "yesterday"
+    #f "Cooked instant noodles and there was somehow" (c="grizzley rizzly bear")
+    #f "A BUG IN THE BOILING POT"
+    #f "I was hungry af..."
+    #f "so i dumped the bug and water down the drain n ate the noodles"
+    #f "If i die it was bc of the bug"
+    #y "lmao" (c="grizzley rizzly bear")
+    #f "Heyy, what's up?"
+    #y "nothing"
+    #f "Cool"
+    #f "You won't believe what happen!"
+    #f "I bought light sensitive color powder for my project"
+    #f "n I accidentally let it go under the sun."
+    #f "LIGHT REACTIVE EVEN IN POWDER FORM"
+    #f "I'm so stupid... now I have to go buy new one...TmT"
+    #f "Hope you are doing well!"
+    #f "Text me back if you can!"
 
-    f "Cooked instant noodles and there was somehow" (c="grizzley rizzly bear")
-    f "A BUG IN THE BOILING POT"
-    f "I was hungry af..." 
-    f "so i dumped the bug and water down the drain n ate the noodles"
-    f "If i die it was bc of the bug"
-    y "lmao" (c="grizzley rizzly bear")
-    f "Heyy, what's up?"
-    y "nothing"
-    f "Cool"
-    f "You won't believe what happen!" 
-    f "I bought light sensitive color powder for my project"
-    f "n I accidentally let it go under the sun."
-    f "LIGHT REACTIVE EVEN IN POWDER FORM"
-    f "I'm so stupid... now I have to go buy new one...TmT"
-    f "Hope you are doing well!"
-    f "Text me back if you can!"
-
-    f "There is this one book i want on that overstock website"  (c="grizzley rizzly bear")
-    f "and i've literally missed it TWICE already by a few minutes..."
-    f "hey, getting very worried..."
+    #f "There is this one book i want on that overstock website"  (c="grizzley rizzly bear")
+    #f "and i've literally missed it TWICE already by a few minutes..."
+    d "[day4word]" (c="grizzley rizzly bear")
+    f "hey, getting very worried..." (c="grizzley rizzly bear")
     f "please respond"
 
-    m "Are you coming home for the holidays?" (c="Mom")
-    y "no I will be at #### house" (c="Mom")
-    m "Alright then, you guys have fun!"
-    m "Love and kisses!"
-    m "Hey, you should pick up the phone when I call you."
-    m "Call me."
-    m "Do you want me to bring you more food today?"
-    m "I will bring anyways, check your mailbox."
-    m "Did you check your mailbox?"
-    m "I made your favorite dish ♥"
-    m "Love and kisses!"
-    m "Honey, pick up the phone."
-    
-    l "I'm sorry for yelling at you yesterday... I'm not feeling well."  (c="Pookie")
-    l "I'm not making excuses of course, I'm really sorry."
-    l "Please pick up my calls :("
-    y "I miss you." (c="Pookie")
-    y "I wish you would reply to me."
-    
+    #m "Are you coming home for the holidays?" (c="Mom")
+    #y "no I will be at #### house" (c="Mom")
+    #m "Alright then, you guys have fun!"
+    #m "Love and kisses!"
+    #m "Hey, you should pick up the phone when I call you."
+    #m "Call me."
+    #m "Do you want me to bring you more food today?"
+    #m "I will bring anyways, check your mailbox."
+    #m "Did you check your mailbox?"
+    #m "I made your favorite dish ♥"
+    #m "Love and kisses!"
+    d "[day4word]" (c="Mom")
+    m "Honey, pick up the phone."(c="Mom")
+
+    #l "I'm sorry for yelling at you yesterday... I'm not feeling well."  (c="Pookie")
+    #l "I'm not making excuses of course, I'm really sorry."
+    #l "Please pick up my calls :("
+    #y "I miss you." (c="Pookie")
+    #y "I wish you would reply to me."
+label d4_post_messages:
     pause 20 ## 10 seconds to explore
 
     "..."
@@ -230,7 +248,7 @@ label kitchend4:
     "This kitchen is really depressing."
     "I'm really not hungry."
     "I just want to sleep."
-    
+
     scene d4_bg
     show d4_bedroom_1
     show d4_bedroom_2

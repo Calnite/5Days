@@ -7,19 +7,20 @@ default washed = False
 
 
 label day2:
+    $ seen_todays_messages = False
     play music "<loop 0>noneuclidean.wav" volume 0.5 fadeout 1.5 fadein 1.5
 
     scene d2_bg
     show d2_bed
     with fade
-    
+
     pause 0.5
     show d2_bed2
     pause 0.2
     show d2_bed3 with vpunch
     pause 0.05
-    play sound "breath.wav" 
-    show d2_bed4 
+    play sound "breath.wav"
+    show d2_bed4
     pause 0.1
     jump bedroomd2
 
@@ -60,12 +61,12 @@ label menu2:
                 "I don't want to go to the kitchen."
                 $ kitchen2 = True
                 jump menu2
-            
+
             else:
                 "Not hungry."
                 $ kitchen1 = True
                 jump menu2
-            
+
 
         "Go wash up" if not bathvisited:
             $ actions_taken.append("d2_bathvisited")
@@ -80,12 +81,24 @@ label pcd2:
     play sound "chair.mp3"
     with fade1
 
-    pause 0.75   
+    pause 0.75
     play sound "click.mp3" volume 1.5
 
     call screen desktop(2)
     jump expression _return
 
+label d2_messages_cancel:
+    $ pcchecked = True
+    scene d2_pc
+    call screen desktop(2)
+    jump expression _return
+
+label d2_browser:
+    show d2_browser
+    "...I hate my wifi."
+    hide d2_browser
+    call screen desktop(2)
+    jump expression _return
 
 label d2_game:
     #show infinite_load
@@ -104,20 +117,22 @@ label d2_shutdown:
 
 label d2_messages:
     play sound "click.mp3" volume 1.5
-    $ reset_chats()
+    #$ reset_chats()
     window hide
     show screen chat_messages_view(2)
-
-    f "Cooked instant noodles and there was somehow" (c="grizzley rizzly bear")
-    f "A BUG IN THE BOILING POT"
-    f "I was hungry af..." 
-    f "so i dumped the bug and water down the drain n ate the noodles"
-    f "If i die it was bc of the bug"
-    y "lmao" (c="grizzley rizzly bear")
-    f "Heyy, what's up?"
-    y "nothing"
-    f "Cool"
-
+    $ day0word = "3 days ago"
+    $ day1word = "2 days ago"
+    $ day2word = "yesterday"
+    #f "Cooked instant noodles and there was somehow" (c="grizzley rizzly bear")
+    #f "A BUG IN THE BOILING POT"
+    #f "I was hungry af..."
+    #f "so i dumped the bug and water down the drain n ate the noodles"
+    #f "If i die it was bc of the bug"
+    #y "lmao" (c="grizzley rizzly bear")
+    #f "Heyy, what's up?"
+    #y "nothing"
+    #f "Cool"
+    d "[day2word]" (c="grizzley rizzly bear")
     f "You won't believe what happen!" (c="grizzley rizzly bear")
     f "I bought light sensitive color powder for my project, I accidentally let it go under the sun."
     f "LIGHT REACTIVE EVEN IN POWDER FORM"
@@ -125,21 +140,22 @@ label d2_messages:
     f "Hope you are doing well!"
     f "Text me back if you can!"
 
-    m "Are you coming home for the holidays?" (c="Mom")
-    y "no I will be at #### house"  (c="Mom")
-    m "Alright then, you guys have fun!"
-    m "Love and kisses!"
-    m "Hey, you should pick up the phone when I call you."
-    m "Call me."
-    m "Do you want me to bring you more food today?"
+    #m "Are you coming home for the holidays?" (c="Mom")
+    #y "no I will be at #### house"  (c="Mom")
+    #m "Alright then, you guys have fun!"
+    #m "Love and kisses!"
+    #m "Hey, you should pick up the phone when I call you."
+    #m "Call me."
+    d "[day2word]" (c="Mom")
+    m "Do you want me to bring you more food today?"(c="Mom")
     m "I will bring anyways, check your mailbox."
-    
-    l "I'm sorry for yelling at you yesterday... I'm not feeling well."  (c="Pookie")
-    l "I'm not making excuses of course, I'm really sorry."
-    l "Please pick up my calls :("
-    y "I miss you." (c="Pookie")
-    y "I wish you would reply to me."
-    
+
+    #l "I'm sorry for yelling at you yesterday... I'm not feeling well."  (c="Pookie")
+    #l "I'm not making excuses of course, I'm really sorry."
+    #l "Please pick up my calls :("
+    #y "I miss you." (c="Pookie")
+    #y "I wish you would reply to me."
+label d2_post_messages:
     pause 20 ## 10 seconds to explore
 
     "Of course... Why am I getting my hopes up."
@@ -182,7 +198,7 @@ label bathroomd2:
 
             play sound "glass.mp3"
             show d2_mirror_3
-            with hpunch 
+            with hpunch
             pause 0.75
             "Ugh...  {w=0.5} that hurts."
             "Now I have to clean up the shards."
@@ -201,7 +217,7 @@ label bathroomd2:
             pause 0.5
             "Maybe I should try to go back to sleep."
             "And wake up in a better mood..."
-            
+
             stop music
             jump day3
 
@@ -225,5 +241,5 @@ label kitchend2:
     "Whatever, I will clean it later."
 
     $ ate = True
-    
+
     jump menu2

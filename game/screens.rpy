@@ -1228,13 +1228,50 @@ style help_label_text:
 ## Added as an alternative to the over-complicated point-and-click framework, which is meant for exploring an environment, not a single screen
 screen desktop(day):
     zorder -100
-    #add "images/Day 1/d1_pc_2.png"
     vbox:
-        
-        textbutton "messages" pos (100,150) action Return("d"+str(day)+"_messages")
-        textbutton "game" pos (100,250) action Return("d"+str(day)+"_game")
-        textbutton "shut down" pos (150,870) action Return("d"+str(day)+"_shutdown")
+        style_prefix "desktop"
+        pos (100,120)
+        spacing 50
+        if seen_todays_messages:
+            textbutton "messages":
+                foreground "images/message.png"
+                action [Show("chat_messages_view",day=day),Jump("d"+str(day)+"_post_messages")]
+        else:
+            textbutton "messages":
+                foreground "images/message.png"
+                action [SetVariable("seen_todays_messages", True),Return("d"+str(day)+"_messages")]
+        textbutton "memories.exe":
+            foreground "images/game.png"
+            action Return("d"+str(day)+"_game")
+        #textbutton "files":
+            #foreground "images/explorer.png"
+            #action Return("d"+str(day)+"_explorer")
+        textbutton "browser":
+            foreground "images/browser.png"
+            action Return("d"+str(day)+"_browser")
+    textbutton "shut down":
+        style_prefix "shutdown"
+        pos (88,970)
+        action Return("d"+str(day)+"_shutdown")
 
+style shutdown_button:
+    xsize 50
+    ysize 50
+    hover_background "#a0a0a0a0"
+style shutdown_button_text:
+    color gui.text_color + "00"
+    hover_color gui.text_color
+    yalign 0.5
+    xanchor 0.0
+    xpos 1.3
+style desktop_button:
+    xsize 100
+    ysize 100
+    hover_background "#a0a0a0a0"
+style desktop_button_text:
+    yanchor 0.0
+    ypos 1.0
+    xalign 0.5
 
 ## Confirm screen ##############################################################
 ##

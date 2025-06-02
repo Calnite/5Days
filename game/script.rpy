@@ -27,30 +27,32 @@ default attach = False
 default avoid = False
 
 default actions_taken = []
+default seen_todays_messages = False
 
 default f = ChatCharacter("grizzley rizzly bear", icon="images/friend.png", name_color="#403174")
 default m = ChatCharacter("Mom", icon="images/mom.png", name_color="#5b8a46")
 default l = ChatCharacter("Pookie", icon="images/lover.png", name_color="#8a4660")
 default y = ChatCharacter("you", icon="images/you.png", name_color="#000000")
+default d = ChatCharacter("date")
 
 label splashscreen:
-    scene black 
+    scene black
     pause 1.0
-    
+
     show text "This Visual Novel is not suitable for audiences under 18." with dissolve
     pause 2
-    
+
     hide text with fade
     pause 1.0
-    
+
     show text "Content warning: Death, Depression, Self harm, Blood." with dissolve
     pause 2
-    
+
     hide text with fade
     pause 1.0
 
     scene main_menu with fade
-    return 
+    return
 
 ############################################################### DAY 1
 
@@ -73,8 +75,8 @@ label start:
 label day1:
     play music "<loop 0>umbra.mp3" volume 0.3 fadeout 1.5 fadein 1.5
 
-    scene d1_bg 
-    show d1_bed 
+    scene d1_bg
+    show d1_bed
     with fade1
     pause 1
 
@@ -82,23 +84,23 @@ label day1:
         "wake up":
             "I better get up now."
             jump bedroomd1
-            
+
         "sleep in":
-            if dreamending: 
+            if dreamending:
                 jump dreamending
             elif sleeping:
                 jump sleepin2
             else:
                 jump sleepin1
-                
+
 
 label sleepin1:
-    "Just five more minutes..." 
+    "Just five more minutes..."
     $ sleeping = True
     jump day1
 
 label sleepin2:
-    "... I want... more time." 
+    "... I want... more time."
     $ dreamending = True
     jump day1
 
@@ -179,15 +181,29 @@ label pcd1:
     play sound "chair.mp3"
     with fade1
 
-    pause 0.75   
+    pause 0.75
     "Hm, I should check my messages."
     play sound "click.mp3" volume 1.5
 
     call screen desktop(1)
     jump expression _return
 
+label d1_messages_cancel:
+    $ pcchecked = True
+    scene d1_pc
+    call screen desktop(1)
+    jump expression _return
+
+label d1_browser:
+    play sound "click.mp3" volume 1.5
+    show d1_browser
+    "...It's not loading."
+    hide d1_browser
+    call screen desktop(1)
+    jump expression _return
 
 label d1_game:
+    play sound "click.mp3" volume 1.5
     #show infinite_load
     "...It's not loading."
     call screen desktop(1)
@@ -207,10 +223,12 @@ label d1_messages:
     $ reset_chats() ## this gets everything set up correctly, but since you don't want any new messages to show up, only call it on day 1.
     window hide
     show screen chat_messages_view(1)
-
+    $ day0word = "2 days ago"
+    $ day1word = "yesterday"
+    d "[day1word]" (c="grizzley rizzly bear")
     f "Cooked instant noodles and there was somehow" (c="grizzley rizzly bear")
     f "A BUG IN THE BOILING POT"
-    f "I was hungry af..." 
+    f "I was hungry af..."
     f "so i dumped the bug and water down the drain n ate the noodles"
     f "If i die it was bc of the bug"
     y "lmao" (c="grizzley rizzly bear")
@@ -218,19 +236,22 @@ label d1_messages:
     y "nothing"
     f "Cool"
 
+    d "[day0word]" (c="Mom")
     m "Are you coming home for the holidays?" (c="Mom")
     y "no I will be at #### house"  (c="Mom")
     m "Alright then, you guys have fun!"
     m "Love and kisses!"
+    d "[day1word]"
     m "Hey, you should pick up the phone when I call you."
     m "Call me."
-    
+
+    d "older messages" (c="Pookie")
     l "I'm sorry for yelling at you yesterday... I'm not feeling well."  (c="Pookie")
     l "I'm not making excuses of course, I'm really sorry."
     l "Please pick up my calls :("
     y "I miss you." (c="Pookie")
     y "I wish you would reply to me."
-    
+label d1_post_messages:
     pause 30
 
     "...still no reply."
@@ -258,7 +279,7 @@ label bathroomd1:
     pause 0.75
     "My bathroom's light is not very bright."
     "You keep reminding me to fix it."
-    
+
     $ bathvisited = True
 
     menu:
@@ -283,7 +304,7 @@ label bathroomd1:
             "Oh...  {w=0.5} is it really me?"
             "I don't know."
 
-            scene d1_bg 
+            scene d1_bg
             show d1_door_1
             show d1_door_2
             show d1_door_3
@@ -297,8 +318,8 @@ label bathroomd1:
             pause 3
 
             "All done."
-            
-            scene d1_bg 
+
+            scene d1_bg
             show d1_door_1
             show d1_door_2
             show d1_door_3
@@ -328,7 +349,7 @@ label kitchend1:
 
     "Urgh... it's kinda nasty."
     play sound "suspense.wav"
-    
+
     pause 1.5
     "... {w=0.1} {nw}"
 
@@ -340,4 +361,3 @@ label kitchend1:
 
     stop music
     jump day2
-    

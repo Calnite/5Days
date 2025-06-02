@@ -258,8 +258,8 @@ init python:
                 channel_images[c] = "channel icons/" + c + ".png"
 
         # if not active in that channel, light up that button
-        #if current_window != c:
-            #channels_new_message[c] = True
+        if current_window != c:
+            channels_new_message[c] = True
 
         # send the message
         if channels_last_sender[c] == sender and last_window == active_window:
@@ -384,7 +384,12 @@ init python:
 
 screen chat_messages_view(day):
     add "images/Day "+str(day)+"/d"+str(day)+"_chat.png"
-
+    imagebutton:
+        idle "cancel.png"
+        xsize 50
+        ysize 50
+        pos (1640,75)
+        action [Hide("chat_messages_view"),Jump("d"+str(day)+"_messages_cancel")]
     ## messages area
     window:
         padding (10,10)
@@ -409,18 +414,28 @@ screen chat_messages_view(day):
                         null width 70 # change this to the width of the icons
 
                     vbox:
-                        if chat["include_name"]: # if should include name of sender (i.e. last message isn't from this same sender)
-                            text chat["name"]: # sender name
-                                size 30
-                                color chat["name_color"] # By default, this uses name_color argument passed to the ChatCharacter(). If you want all characters to just use the same color, then just change this to color "#FFF" (replace "#FFF" with whatever your desired color hex value)
-                                line_spacing 10
-                                bold True
-                                # You can change styling of the name here
+                        if chat["name"] == "date":
+                            frame:
+                                xfill True
+                                background None
+                                text chat["message"]: # chat message
+                                    size 30
+                                    #color "#FFFFFF"
+                                    line_spacing 10
+                                    xalign 0.5
+                        else:
+                            if chat["include_name"]: # if should include name of sender (i.e. last message isn't from this same sender)
+                                text chat["name"]: # sender name
+                                    size 30
+                                    color chat["name_color"] # By default, this uses name_color argument passed to the ChatCharacter(). If you want all characters to just use the same color, then just change this to color "#FFF" (replace "#FFF" with whatever your desired color hex value)
+                                    line_spacing 10
+                                    bold True
+                                    # You can change styling of the name here
 
-                        text chat["message"]: # chat message
-                            size 30
-                            color "#FFFFFF"
-                            line_spacing 10
+                            text chat["message"]: # chat message
+                                size 30
+                                color "#FFFFFF"
+                                line_spacing 10
 
         if current_window == active_window:
             text who_is_typing color "#FFFFFF" size 20

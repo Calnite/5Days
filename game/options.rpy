@@ -29,7 +29,7 @@ define config.version = "2"
 ## Text that is placed on the game's about screen. Place the text between the
 ## triple-quotes, and leave a blank line between paragraphs.
 
-define gui.about = _p(""" 5 Days is a Visual Novel developed by {a=https://bsky.app/profile/calnite.com}Cal(Cvlnite){/a}.
+define gui.about = _p(""" 5 Days is a Visual Novel developed by {a=https://bsky.app/profile/calnite.com}Cal(Cvlnite){/a} with programming assistance from {a=https://edgessystem.itch.io/}EdgesSystem{/a}.
 """)
 
 
