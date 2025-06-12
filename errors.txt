@@ -2,9 +2,9 @@
 errors listed below, and try again.
 
 
-File "game/script3.rpy", line 210: choice menuitem expects a non-empty block.
-    "Leave it, I can't clean properly now.":
-                                            ^
+File "game/screens.rpy", line 901: 'size' is not a keyword argument or valid child of the textbutton statement.
+    size 30
+        ^
 
 Ren'Py Version: Ren'Py 8.3.2.24090902
-Tue May 13 02:32:13 2025
+Fri Jun  6 15:03:43 2025

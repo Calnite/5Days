@@ -18,18 +18,24 @@ define config.name = _("5 Days")
 ## Determines if the title given above is shown on the main menu screen. Set
 ## this to False to hide the title.
 
-define gui.show_name = True
+define gui.show_name = False
 
 
 ## The version of the game.
 
-define config.version = "2"
+define config.version = "2.1"
 
 
 ## Text that is placed on the game's about screen. Place the text between the
 ## triple-quotes, and leave a blank line between paragraphs.
 
-define gui.about = _p(""" 5 Days is a Visual Novel developed by {a=https://bsky.app/profile/calnite.com}Cal(Cvlnite){/a} with programming assistance from {a=https://edgessystem.itch.io/}EdgesSystem{/a}.
+define gui.about = _p("""Dive deep into the complex and raw reality of grief. Immerse in a world where loss lingers in every corner, and choices shape not only your path but also your emotional healing.
+\nEvery step forward feels like another memory slipping through your fingers and yet, the world moves on — forcing you to find a way to follow, even when it feels impossible to let go. 
+\nThis Visual Novel is recommended for audiences above 16.
+\nFor the best experience play with headphones {a=https://calnite.itch.io/5-days-demo}at home{/a}.
+\nContent Warning: Death, Depression, Self-Harm, Blood
+\n5 Days is a Visual Novel developed by {a=https://bsky.app/profile/calnite.com}Cal(Cvlnite){/a} with programming assistance from {a=https://edgessystem.itch.io/}EdgesSystem{/a}.
+\n
 """)
 
 
@@ -51,7 +57,7 @@ define config.main_menu_music = "audio/umbra.mp3"
 
 define config.has_sound = True
 define config.has_music = True
-define config.has_voice = True
+define config.has_voice = False
 
 
 

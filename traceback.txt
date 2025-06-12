@@ -1,28 +1,26 @@
 ﻿I'm sorry, but an uncaught exception occurred.
 
 While running game code:
-  File "game/script4.rpy", line 114, in script
-    if bath2:
-  File "game/script4.rpy", line 114, in <module>
-    if bath2:
-NameError: name 'bath2' is not defined
+  File "game/script2.rpy", line 103, in script
+    $ reset_chats(2)
+  File "game/script2.rpy", line 103, in <module>
+    $ reset_chats(2)
+TypeError: reset_chats() takes 0 positional arguments but 1 was given
 
 -- Full Traceback ------------------------------------------------------------
 
 Full traceback:
-  File "game/script4.rpy", line 114, in script
-    if bath2:
-  File "C:\Users\memor.DESKTOP-AEKJ83H\Downloads\renpy-8.3.7-sdk\renpy-8.3.7-sdk\renpy\ast.py", line 1856, in execute
-    if renpy.python.py_eval(condition):
-  File "C:\Users\memor.DESKTOP-AEKJ83H\Downloads\renpy-8.3.7-sdk\renpy-8.3.7-sdk\renpy\python.py", line 1218, in py_eval
-    return py_eval_bytecode(code, globals, locals)
-  File "C:\Users\memor.DESKTOP-AEKJ83H\Downloads\renpy-8.3.7-sdk\renpy-8.3.7-sdk\renpy\python.py", line 1211, in py_eval_bytecode
-    return eval(bytecode, globals, locals)
-  File "game/script4.rpy", line 114, in <module>
-    if bath2:
-NameError: name 'bath2' is not defined
+  File "game/script2.rpy", line 103, in script
+    $ reset_chats(2)
+  File "F:\renpy-8.3.2-sdk\renpy\ast.py", line 821, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+  File "F:\renpy-8.3.2-sdk\renpy\python.py", line 1178, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+  File "game/script2.rpy", line 103, in <module>
+    $ reset_chats(2)
+TypeError: reset_chats() takes 0 positional arguments but 1 was given
 
 Windows-10-10.0.26100 AMD64
-Ren'Py 8.3.7.25031702
-5 Days 2
-Tue May 13 18:27:48 2025
+Ren'Py 8.3.2.24090902
+5 Days 2.1
+Fri Jun  6 16:22:08 2025

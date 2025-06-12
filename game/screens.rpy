@@ -323,7 +323,7 @@ screen navigation():
 
         textbutton _("Load") action ShowMenu("load")
 
-        textbutton _("Preferences") action ShowMenu("preferences")
+        textbutton _("Settings") action ShowMenu("preferences")
 
         if _in_replay:
 
@@ -331,7 +331,7 @@ screen navigation():
 
         elif not main_menu:
 
-            textbutton _("Main Menu") action MainMenu()
+            textbutton _("Title screen") action MainMenu()
 
         textbutton _("About") action ShowMenu("about")
 
@@ -561,7 +561,7 @@ screen game_menu(title, scroll=None, yinitial=0.0, spacing=0):
 
     use navigation
 
-    textbutton _("Return"):
+    textbutton _("Resume"):
         style "return_button"
 
         action Return()
@@ -759,21 +759,21 @@ screen file_slots(title):
                         textbutton _("{#quick_page}Q") action FilePage("quick")
 
                     ## range(1, 10) gives the numbers from 1 to 9.
-                    for page in range(1, 10):
+                    for page in range(1, 6):
                         textbutton "[page]" action FilePage(page)
 
                     textbutton _(">") action FilePageNext()
                     key "save_page_next" action FilePageNext()
 
-                if config.has_sync:
-                    if CurrentScreenName() == "save":
-                        textbutton _("Upload Sync"):
-                            action UploadSync()
-                            xalign 0.5
-                    else:
-                        textbutton _("Download Sync"):
-                            action DownloadSync()
-                            xalign 0.5
+                #if config.has_sync:
+                #    if CurrentScreenName() == "save":
+                #        textbutton _("Upload Sync"):
+                #            action UploadSync()
+                #            xalign 0.5
+                #    else:
+                #        textbutton _("Download Sync"):
+                #            action DownloadSync()
+                #            xalign 0.5
 
 
 style page_label is gui_label
@@ -819,7 +819,7 @@ screen preferences():
 
     tag menu
 
-    use game_menu(_("Preferences"), scroll="viewport"):
+    use game_menu(_("Settings"), scroll="viewport"):
 
         vbox:
 
@@ -831,15 +831,21 @@ screen preferences():
                     vbox:
                         style_prefix "radio"
                         label _("Display")
-                        textbutton _("Window") action Preference("display", "window")
-                        textbutton _("Fullscreen") action Preference("display", "fullscreen")
+                        textbutton _("Window") action Preference("display", "window"):
+                            xpadding 40
+                            
+                        textbutton _("Fullscreen") action Preference("display", "fullscreen"):
+                            xpadding 40
 
                 vbox:
                     style_prefix "check"
                     label _("Skip")
-                    textbutton _("Unseen Text") action Preference("skip", "toggle")
-                    textbutton _("After Choices") action Preference("after choices", "toggle")
-                    textbutton _("Transitions") action InvertSelected(Preference("transitions", "toggle"))
+                    textbutton _("Unseen Text") action Preference("skip", "toggle"):
+                        xpadding 40
+                    textbutton _("After Choices") action Preference("after choices", "toggle"):
+                        xpadding 40
+                    textbutton _("Transitions") action InvertSelected(Preference("transitions", "toggle")):
+                        xpadding 40
 
                 ## Additional vboxes of type "radio_pref" or "check_pref" can be
                 ## added here, to add additional creator-defined preferences.
@@ -892,6 +898,8 @@ screen preferences():
                         null height gui.pref_spacing
 
                         textbutton _("Mute All"):
+                            ypos 20
+                            xpadding 40
                             action Preference("all mute", "toggle")
                             style "mute_all_button"
 
@@ -1074,15 +1082,15 @@ screen help():
         style_prefix "help"
 
         vbox:
-            spacing 23
+            spacing 15
 
             hbox:
 
                 textbutton _("Keyboard") action SetScreenVariable("device", "keyboard")
                 textbutton _("Mouse") action SetScreenVariable("device", "mouse")
 
-                if GamepadExists():
-                    textbutton _("Gamepad") action SetScreenVariable("device", "gamepad")
+                #if GamepadExists():
+                #    textbutton _("Gamepad") action SetScreenVariable("device", "gamepad")
 
             if device == "keyboard":
                 use keyboard_help
@@ -1230,7 +1238,7 @@ screen desktop(day):
     zorder -100
     vbox:
         style_prefix "desktop"
-        pos (100,120)
+        pos (150,120)
         spacing 50
         if seen_todays_messages:
             textbutton "messages":

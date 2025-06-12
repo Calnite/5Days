@@ -1,33 +1,34 @@
 
-default w = Character("?", what_color="#40be20" )
+default w = Character("?", what_color="#40be20", ctc="ctc_animation", ctc_position="fixed")
+
+default expressed = False
 
 ############################################################### DAY 3
 
 
 label day3:
     $ seen_todays_messages = False
-    play music "<loop 0>bedbug.wav" volume 0.5 fadeout 1.5 fadein 1.5
+    play music "<loop 0>foam.wav" volume 0.6 fadeout 2 fadein 2
 
-    scene d3_bg
-    show d3_bed
+    scene d3_bed
     with fade1
-    pause 1.0
+    pause 3
 
     jump bedroomd3
 
 label bedroomd3:
     play sound "blanket.mp3" fadein 1.5
-    scene d3_bg
-    show d3_bedroom_1
-    show d3_bedroom_2
-    show d3_bedroom_3
+    scene d3_bedroom
     with fade1
 
-    pause 0.75
-    "My hand...  {w=0.5} I'm an idiot."
-    "If... I had just did the right thing, would it have changed anything?"
-    "Maybe it's just my curse."
-
+    pause 0.5
+    if washed:
+        "If... I could go back in time, would it have changed anything?"
+        "Maybe it's just my curse."
+    else:
+        "My hand... I'm an idiot."
+        "I should have controlled my temper. I didn't have to lash out like that."
+    
     $ pcchecked = False
     $ ate = False
     $ bathvisited = False
@@ -39,8 +40,6 @@ label menu3:
         "Check my PC" if not pcchecked:
             $ actions_taken.append("d3_pcchecked")
             $ pcchecked = True
-            "The last time we chatted...{w=0.5} I should have been nicer to you."
-            "I sound like an asshole... You didn't deserved it."
             jump pcd3
 
         "Eat something" if not ate:
@@ -60,11 +59,6 @@ label pcd3:
     scene d3_pc
     play sound "chair.mp3"
     with fade1
-
-    pause 0.75
-    "I should do something productive..."
-    play sound "click.mp3" volume 1.5
-
     call screen desktop(3)
     jump expression _return
 
@@ -75,7 +69,9 @@ label d3_messages_cancel:
     jump expression _return
 
 label d3_browser:
-    show d3_browser
+    show d3_browser:
+        xalign 0.5
+        yalign 0.3
     "...Ugh."
     hide d3_browser
     call screen desktop(3)
@@ -83,151 +79,139 @@ label d3_browser:
 
 label d3_game:
     #show infinite_load
-    "Argh, why is it not loading?!"
-    "Is the wifi here so terrible that I can't even play memories???"
+    "I shouldn't have bought this game..."
     call screen desktop(3)
     jump expression _return
 
 label d3_shutdown:
-    "...Whatever."
-    scene d3_bg
-    show d3_bedroom_1
-    show d3_bedroom_2
-    show d3_bedroom_3
+    "The last time we talked... I should have been nicer to you."
+    "You didn't deserve it."
+    scene d3_bedroom
     with fade1
     jump menu3
 
 label d3_messages:
     play sound "click.mp3" volume 1.5
-    #$ reset_chats()
+    $ reset_chats()
     window hide
     show screen chat_messages_view(3)
-    $ day0word = "4 days ago"
-    $ day1word = "3 days ago"
-    $ day2word = "2 days ago"
-    $ day3word = "yesterday"
-    #f "Cooked instant noodles and there was somehow" (c="grizzley rizzly bear")
-    #f "A BUG IN THE BOILING POT"
-    #f "I was hungry af..."
-    #f "so i dumped the bug and water down the drain n ate the noodles"
-    #f "If i die it was bc of the bug"
-    #y "lmao" (c="grizzley rizzly bear")
-    #f "Heyy, what's up?"
-    #y "nothing"
-    #f "Cool"
-    #f "You won't believe what happen!"
-    #f "I bought light sensitive color powder for my project"
-    #f "n I accidentally let it go under the sun."
-    #f "LIGHT REACTIVE EVEN IN POWDER FORM"
-    #f "I'm so stupid... now I have to go buy new one...TmT"
-    #f "Hope you are doing well!"
-    #f "Text me back if you can!"
+    $ day0word = "older messages"
+    $ day1word = "##/##/##"
+    $ day2word = "##/##/##"
+    $ day3word = "new messages"
+
+    d "[day0word]" (c="grizzley rizzly bear")
+    f "Cooked instant noodles and there was somehow" (c="grizzley rizzly bear")
+    f "A BUG IN THE BOILING POT"
+    f "I was hungry af..."
+    f "so i dumped the bug and water down the drain n ate the noodles"
+    f "If i die it was bc of the bug"
+    y "lmao" (c="grizzley rizzly bear")
+    f "Heyy, what's up?"
+    y "nothing"
+    f "Cool"
+    d "[day1word]"
+    f "How are you?"
+    f "Text me back if you can!"
+
+    d "[day2word]" (c="grizzley rizzly bear")
+    f "You won't believe what happen!" (c="grizzley rizzly bear")
+    f "I bought light sensitive color powder for my project, I accidentally let it go under the sun."
+    f "LIGHT REACTIVE EVEN IN POWDER FORM"
+    f "I'm so stupid... now I have to go buy new one...TmT"
+
     d "[day3word]" (c="grizzley rizzly bear")
-    f "There is this one book i want on that overstock website" (c="grizzley rizzly bear")
-    f "and i've literally missed it TWICE already by a few minutes..."
+    f "There is this book i want on the overstock website" (c="grizzley rizzly bear")
+    f "and it keep selling out!!!" 
+    f "i've literally missed it TWICE already by a few minutes..."
 
-    #m "Are you coming home for the holidays?" (c="Mom")
-    #y "no I will be at #### house" (c="Mom")
-    #m "Alright then, you guys have fun!"
-    #m "Love and kisses!"
-    #m "Hey, you should pick up the phone when I call you."
-    #m "Call me."
-    #m "Do you want me to bring you more food today?"
-    #m "I will bring anyways, check your mailbox."
-    d "[day3word]" (c="Mom")
-    m "Did you check your mailbox?" (c="Mom")
-    m "I made your favorite dish ♥"
+    d "[day0word]" (c="Mom")
+    m "Are you coming home for the holidays?" (c="Mom")
+    y "no I will be at ####'s house"  (c="Mom")
+    m "Alright then, you guys have fun!"
     m "Love and kisses!"
+    d "[day1word]"
+    m "Hey, you should pick up the phone when I call you."
+    m "Call me."
+    d "[day2word]" (c="Mom")
+    m "Remember to get out of bed and try to get some fresh air."(c="Mom")
+    d "[day3word]" (c="Mom")
+    m "How are you feeling, honey?" (c="Mom")
+    m "Did you finish your leftovers? Do you want me to bring you some more?"
 
-    #l "I'm sorry for yelling at you yesterday... I'm not feeling well."  (c="Pookie")
-    #l "I'm not making excuses of course, I'm really sorry."
-    #l "Please pick up my calls :("
-    #y "I miss you." (c="Pookie")
-    #y "I wish you would reply to me."
+    d "[day0word]" (c="Dove")
+    l "I'm sorry for yelling at you yesterday... I'm not feeling well."  (c="Dove")
+    l "I'm not making excuses of course, I'm really sorry."
+    l "Please pick up my calls :("
+    y "I miss you." (c="Dove")
+    y "I wish you would reply to me."
 label d3_post_messages:
-    pause 20 ## 10 seconds to explore
+    pause 30
 
-    "Of course... Why am I getting my hopes up."
-    "All you do now is haunt me."
+    menu:
+        "Continue reading":
+            jump d3_messages
 
-    hide screen chat_messages_view
-
-    scene d3_bg
-    show d3_bedroom_1
-    show d3_bedroom_2
-    show d3_bedroom_3
-    with fade1
+        "Close Chat":
+            hide screen chat_messages_view
+            call screen desktop(3)
+            jump expression _return
 
     jump menu3
 
 
 label bathroomd3:
     play sound "door.mp3" fadein 1.5
-    scene d3_bg
-    show d3_bathroom_1
-    show d3_bathroom_2
-    show d3_bathroom_3
-    with fade1
+    if washed:
+        scene d3_bathroom with fade1
+        pause 0.75
 
-    pause 0.75
+    else:
+        scene d3_bathroomcracked with fade1
+        pause 0.75
+        "The bathroom smells of bleach and regret. I scrubbed away the blood but not the memories."
 
-    if avoid:
-        "I threw away your toothbrush."
-        "...I can still take it fro mthe trashcan."
-        "It's still not to late..."
-        menu:
-            "Take it out the trashcan":
-                "I will wash it and put it away."
-                $ avoid = False
 
-            "Leave it":
-                "I shouldn't be so indecisive."
-
-    elif attach:
-        "...your toothbrush."
-        "I didn't manage to throw it away."
+    if not avoid and attach:
         menu:
             "Throw it away":
                 $ avoid = True
-                $ attach = False
-                "I won't be needing this any more."
+                "... There's no need to keep a brush."
+                "But my hand shakes as I drop it in the trash."
+                "This isn't betrayal... is it?"
 
-            "Put it away":
-                "If I can't throw it away I have to put it away."
+            "Leave it there":
+                $ attach = True
+                "I won't throw your things away.{w=0.5}\nBesides... what if you need it when you come back?"
+                "I'll keep everything exactly as you left it.\nJust in case."
 
-            "Leave it":
-                "I can throw it away later."
-
-
+    elif washed:
+        "I should fix the light soon... or at least call someone to do it."
     else:
-        "..."
+        "The mirror... it's cracked.{w=0.5}\n...of course it is."
+        "Why did I do that..."
 
-    "The mirror... it's cracked."
-    "...of course it is."
 
     menu:
         "Look at the mirror":
-            "Why did I have to do that..."
-            "I will get a scar."
-            scene d3_bg
-            show d3_mirror_1
-            show d3_mirror_2
-            show d3_mirror_3
-            with fade1
-            pause 0.5
-            "If I had just said something different that day. If I had noticed something..."
-            "Anything, that could have saved you."
-            "No... {w=0.5}I have noticed."
-            "I should have done something."
-            "Maybe I could have saved myself too."
-            "If I could see your face and hear your voice {w=0.5} just one more time."
-            "..."
-            "I loved you so much."
+            if washed:
+                scene d3_mirror with fade1
+                pause 0.5
+                "A stranger wearing my face."
 
-            scene d3_bg
-            show d3_bedroom_1
-            show d3_bedroom_2
-            show d3_bedroom_3
+            else:
+                scene d3_mirrorcracked with fade1
+                pause 0.5
+                "Why are you judging me?"
+            
+            "If I had just said something different that day.{w=0.5}\n If I had noticed something...anything."
+            "No...I have noticed.{w=0.5}\nI should have done something."
+            "Maybe I could have saved myself, too."
+            "If I could see your face and hear your voice {w=0.5} just one more time."
+            "...I miss you."
+            "I love you."
+
+            scene d3_bedroom
             with fade1
             pause 0.5
 
@@ -237,7 +221,11 @@ label bathroomd3:
             play sound "tapwater.wav"
             scene d3_sink with fade
             pause 0.5
-            "It's kinda difficult to wash up with my hand like this."
+            if washed:
+                "Refreshing myself should help me feel better."
+
+            else:
+                "It's kinda difficult to wash up with my hand like this."
 
             jump menu3
 
@@ -246,22 +234,26 @@ label kitchend3:
     play sound "door.mp3" fadein 1.5
     scene d3_kitchen with fade1
     pause 0.5
-    "I'm feeling weak. I must be hungry."
-    "Ugh... what a mess."
-    "I didn't clean the shards yesterday."
-    "Why am I like this..."
+    
+    "If I eat like a living person... maybe I'll start feeling alive again."
 
-    menu:
-        "Clean it up":
-            "There we go... It's the best I can do right now."
-            $ kitchencleaned = True
+    if not kitchencleaned:
+        "I didn't clean the shards yesterday."
+        "Why am I like this..."
+        menu:
+            "Clean it":
+                "I should clean it..."
+                play sound "glassclean.mp3"
+                "The trash bin swallows what's broken. If only my emotions could be disposed of so easily."
+                $ kitchencleaned = True
 
-        "Leave it, I can't clean properly now.":
-            "I can clean it later."
+            "Leave it":
+                "I should clean it... But what's the point? More things will keep breaking."
 
-    "I'm almost out of food, why didn't I stock up?"
-
-    play sound "doorbell.mp3" volume 0.4
+    else:
+        "I'm almost out of food..."
+    
+    play sound "doorbell.mp3" volume 0.2
     pause 1.0
     "Someone's at the door..."
 
@@ -269,15 +261,11 @@ label kitchend3:
 
 label doord3:
     play sound "door.mp3" fadein 1.5
-    scene d3_bg
-    show d3_door_1
-    show d3_door_2
-    show d3_door_3
+    scene d3_door
     with fade1
     pause 0.5
 
     show d3_doorout with fade
-    stop music
     pause 0.5
     "..."
     w "Hey!"
@@ -285,35 +273,41 @@ label doord3:
     w "It's been a while since I heard from you, so I came to check up."
     w "How are you doing?"
     menu:
-        "I'm fine":
-            "... I'm fine."
+        "I'm managing":
+            "I'm... managing."
             w "Good to hear..."
             w "Have you been to work then? Are you working from home?"
             "...oh I- {w=0.5} {nw}"
             w "Huh? Don't tell me you are missing work."
-            w "It's been a few days already."
-            w "You have enough time and you are fine now."
-            w "How long are you going to keep being lazy?"
+            w "Christ, it's been weeks!"
+            "{i}...Weeks?{/i}"
+            w "If you are fine now, you shouldn't miss work."
             "..."
+            "You don't have to worry about that."
+            w "How long are you going to keep being lazy?"
             "Leave..."
-            w "I came out here to check up on you and this is my thank?"
+            w "What? I came out here to check up on you, and this is my thank?"
             w "...you are such a {w=0.5} {nw}"
             "{cps=0}LEAVE!!! {w=1} {nw}" with hpunch
 
-            scene black
-            jump day4
 
         "I'm not feeling well":
-            "I'm not feeling well, actually..."
-            w "What?"
-            "...The past few days hasen't been to good."
-            w "Awh cmon, It's been a few days already."
-            w "How long are you going to keep being lazy?"
+            "I'm not feeling well, actually...\nThe past few days haven't been good."
+            w "Oh come on... It's been a few weeks already."
+            "{i}...Weeks?{/i}"
+            w "I think you are just dragging this out..."
             "..."
-            "Leave..."
-            w "I came out here to check up on you and this is my thank?"
-            w "...you are such a {w=0.5} {nw}"
-            "{cps=0}LEAVE!!! {w=1} {nw}" with hpunch
+            w "You can't keep dwelling on it. It's like you are not even trying!"
+            "What? You don't get to say that. How would you know?"
+            w "I have been pretty understanding so far, but... weeks?"
+            "Understanding?\nThen why don't you understand that I'm trying?"
+            "You don't get to say when I should stop feeling."
+            "It doesn't work like that..."
+            "You don't understand me because you didn't put yourself in my shoes."
+            w "What are you talking about? I have lost someone too.\nIt's not unique to you."
+            "You should leave."
+            $ expressed = True
 
-            scene black
-            jump day4
+    stop music fadeout 2
+    scene black with fade1
+    jump day4

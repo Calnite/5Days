@@ -86,7 +86,7 @@ init python:
             if c:
                 channel = c
             else:
-                channel = last_window or "Pookie" # TODO change this "#team-adoai" to your own default channel name
+                channel = last_window or "Dove" # TODO change this "#team-adoai" to your own default channel name
 
             # if ot isn't a list and is only a single element, turn it into a list for processing later
             if ot and not isinstance(ot, list):
@@ -118,8 +118,8 @@ init python:
         global last_sender
         global last_window
 
-        current_window = "grizzley rizzly bear"
-        active_window = "grizzley rizzly bear"
+        current_window = "Dove"
+        active_window = "Dove"
 
         who_is_typing = ""
         who_was_typing_list = []
@@ -129,9 +129,9 @@ init python:
 
         # chat groups
         channels = {
+            "Dove" : [],
             "grizzley rizzly bear" : [],
-            "Mom" : [],
-            "Pookie" : [],
+            "Mom" : []
         }
 
         # optional images for chat icons
@@ -139,21 +139,21 @@ init python:
         channel_images = {
             "grizzley rizzly bear" : "images/friend.png",
             "Mom" : "images/mom.png",
-            "Pookie" : "images/lover.png"
+            "Dove" : "images/lover.png"
         }
 
         # indicator for when a new message arrives
         channels_new_message = {
             "grizzley rizzly bear" : False,
             "Mom" : False,
-            "Pookie" : False
+            "Dove" : False
         }
 
         # who sent the last message in the channel
         channels_last_sender = {
             "grizzley rizzly bear" : None,
             "Mom" : None,
-            "Pookie" : None
+            "Dove" : None
         }
 
     def chat_message(sender, message, c="#team-adoai", ot=None, fastmode=-1, is_player=False):
@@ -388,7 +388,7 @@ screen chat_messages_view(day):
         idle "cancel.png"
         xsize 50
         ysize 50
-        pos (1640,75)
+        pos (1628,68)
         action [Hide("chat_messages_view"),Jump("d"+str(day)+"_messages_cancel")]
     ## messages area
     window:

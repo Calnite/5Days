@@ -66,22 +66,22 @@ define gui.name_text_font = "Pangolin-Regular.ttf"
 define gui.interface_text_font = "Pangolin-Regular.ttf"
 
 ## The size of normal dialogue text.
-define gui.text_size = 30
+define gui.text_size = 28
 
 ## The size of character names.
-define gui.name_text_size = 30
+define gui.name_text_size = 28
 
 ## The size of text in the game's user interface.
-define gui.interface_text_size = 30
+define gui.interface_text_size = 28
 
 ## The size of labels in the game's user interface.
-define gui.label_text_size = 32
+define gui.label_text_size = 40
 
 ## The size of text on the notify screen.
-define gui.notify_text_size = 30
+define gui.notify_text_size = 28
 
 ## The size of the game's title.
-define gui.title_text_size = 32
+define gui.title_text_size = 40
 
 
 ## Main and Game Menus #########################################################
@@ -228,6 +228,7 @@ define gui.slot_button_height = 309
 define gui.slot_button_borders = Borders(15, 15, 15, 15)
 define gui.slot_button_text_size = 21
 define gui.slot_button_text_xalign = 0.5
+define gui.slot_button_text_ypos = 35
 define gui.slot_button_text_idle_color = gui.idle_small_color
 define gui.slot_button_text_selected_idle_color = gui.selected_color
 define gui.slot_button_text_selected_hover_color = gui.hover_color
@@ -266,10 +267,10 @@ define gui.navigation_spacing = 6
 define gui.pref_spacing = 15
 
 ## Controls the amount of spacing between preference buttons.
-define gui.pref_button_spacing = 0
+define gui.pref_button_spacing = 5
 
 ## The spacing between file page buttons.
-define gui.page_spacing = 0
+define gui.page_spacing = 5
 
 ## The spacing between file slots.
 define gui.slot_spacing = 15
@@ -308,9 +309,9 @@ define gui.frame_tile = False
 
 ## The height of horizontal bars, scrollbars, and sliders. The width of vertical
 ## bars, scrollbars, and sliders.
-define gui.bar_size = 38
+define gui.bar_size = 30
 define gui.scrollbar_size = 18
-define gui.slider_size = 38
+define gui.slider_size = 30
 
 ## True if bar images should be tiled. False if they should be linearly scaled.
 define gui.bar_tile = False
